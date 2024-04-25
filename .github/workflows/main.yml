@@ -28,3 +28,12 @@ jobs:
         
         - name: Run Bandit Scan
           run: bandit -r -ll -ii -o bandit-report.json -f json . # Scans everything in current folder recursively!
+          # Will later be consumed by defectdojo a vulnerability management tool
+
+        - name: Upload artifact
+          uses: action/upload-artifact@v3
+          if: always() #always executes this steps even when everything else fails!
+          with:
+            name: bandit-findings
+            path: bandit-report.json
+          
