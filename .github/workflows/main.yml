@@ -1,7 +1,7 @@
 name: CI
 
 on:
-  [push] # triggers pipeline when a push is made do any branch in this repo
+  [push, workflow_dispatch] # triggers pipeline when a push is made do any branch in this repo
   #push: triggers when there is a push in a here specified branch
   #  branches:
   #   - main
