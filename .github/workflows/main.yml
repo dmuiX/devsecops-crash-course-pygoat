@@ -7,6 +7,7 @@ on:
   #   - main
 jobs:
     # SAST drop/scan
+    # Security Application Issues..
     # bandit, python specific
     # choose a tool: Criterias: Adoption (Large Community), Complexity, Documentation
     # use multiple tools for the same job
@@ -37,3 +38,28 @@ jobs:
             name: bandit-findings
             path: bandit-report.json
           
+  # Build Docker Image
+  # Scanning Docker Images
+  # Docker Scout
+  image_scan:
+    name: Build Image and Run Image Scan
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+      
+      - name: Install Docker
+        uses: docker-practice/actions-setup-docker@v1
+        with:
+          docker-version: '20.10.7'
+      
+      - name: Build Docker Image
+        run: docker build -f Dockerfile -t myapp:latest .
+      
+      - name: Docker Scout Scan
+        run: | # makes it possible to run various shell commands
+          curl -fsSL https://raw.githubusercontent.com/docker/scout-cli/main/install.sh -o install-scout.sh
+          sh install-scout.sh
+          docker scout quickview
+          docker scout cves
