@@ -31,7 +31,7 @@ jobs:
           # Will later be consumed by defectdojo a vulnerability management tool
 
         - name: Upload artifact
-          uses: action/upload-artifact@v3
+          uses: actions/upload-artifact@v3
           if: always() #always executes this steps even when everything else fails!
           with:
             name: bandit-findings
